@@ -4,21 +4,21 @@
     <title>{% block title %}明博{% endblock title %}</title>
     <link href="{{bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap')}}" rel="stylesheet">
     <link href="../static/blog.css" rel="stylesheet">
-
 {% endblock head %}
 
 {% block navbar %}
-<div class="blog-masthead">
   <div class="container">
-    <nav class="blog-nav">
+    <div class="blog-header ">
       <a class="blog-nav-item active" href="{{ url_for('main.index') }}">主页</a>
-
       <a class="blog-nav-item" href='{{ url_for('main.edit_post') }}'>写博客</a>
       <a class="blog-nav-item" href="#">关于我</a>
-    </nav>
+      <ul class="nav nav-pills pull-right" role="tablist">
+        <li role="presentation"><a class="pull-right" href='{{ url_for('main.login') }}'>登录</a></li>
+        <li role="presentation"><a class="blog-nav-item" href='{{ url_for('main.register') }}'>注册</a></li>
+      </ul>
+    </div>
   </div>
-</div>
-{% endblock navbar %}
+{% endblock  %}
 
 {% block content %}
 <div class="container">

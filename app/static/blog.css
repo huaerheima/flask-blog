@@ -79,8 +79,10 @@ h6, .h6 {
  */
 
 .blog-header {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 5px;
+  background-color: #428bca;
+  border-radius: 5px;
+  margin-bottom: 30px;
 }
 .blog-title {
   margin-top: 30px;
