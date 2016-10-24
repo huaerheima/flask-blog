@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {{ super() }}
+    <link href="../static/edit_post.css" rel = "stylesheet">
+{% endblock head %}
+
+{% block page_content %}
+  <form class='form-edit-post' role = 'form'>
+    <h2 class="form-edit-post-heading">写博客</h2>
+    <input type='text' class="form-control" placeholder="文章标题" required autofocus>
+    <input type="text" class="form-control" placeholder="标签">
+    <textarea class="form-control" rows="10" placeholder="说点啥吧！"></textarea>
+{% endblock %}

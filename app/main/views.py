@@ -38,3 +38,7 @@ def register():
 @main.route('/post/<int:id>', methods = ['GET', 'POST'])
 def post(id):
     return render_template('post.html')
+
+@main.route('/edit-post', methods = ['GET', 'POST'])
+def edit_post():
+    return render_template('edit_post.html')

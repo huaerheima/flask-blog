@@ -11,12 +11,10 @@
 <div class="blog-masthead">
   <div class="container">
     <nav class="blog-nav">
-      <a class="blog-nav-item active" href="#">Home</a>
-      <a class="blog-nav-item" href="#">New features</a>
-      <a class="blog-nav-item" href="#">Press</a>
-      <a class="blog-nav-item" href="#">New hires</a>
-      <a class="blog-nav-item" href="#">About</a>
-      <a class="blog-nav-item" href='#'>写博客</a>
+      <a class="blog-nav-item active" href="{{ url_for('main.index') }}">主页</a>
+
+      <a class="blog-nav-item" href='{{ url_for('main.edit_post') }}'>写博客</a>
+      <a class="blog-nav-item" href="#">关于我</a>
     </nav>
   </div>
 </div>
