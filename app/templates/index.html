@@ -1,10 +1,10 @@
 {% extends 'bootstrap/base.html' %}
 
 {% block head %}
-    <title>{% block title %}登录{{title|default}}{% endblock title %}</title>
+    <title>{% block title %} 注 册 {% endblock title %}</title>
     {%- block styles %}
     <link href="{{bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap')}}" rel="stylesheet">
-    <link href="../static/signin.css" rel="stylesheet">
+    <link href="../static/register.css" rel="stylesheet">
     {%- endblock styles %}
 
 {% endblock head %}
@@ -12,15 +12,11 @@
 {% block body %}
   <div class="container">
       <form class="form-signin" role="form">
-        <h2 class="form-signin-heading">请登录</h2>
+        <h2 class="form-signin-heading">请注册</h2>
         <input type="email" class="form-control" placeholder="邮箱" required autofocus>
         <input type="password" class="form-control" placeholder="密码" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> 记住我
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <input type="password" class="form-control" placeholder="重复密码" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
       </form>
     </div> <!-- /container -->
 {% endblock %}
