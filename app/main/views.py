@@ -10,7 +10,7 @@ from ..models import User
 
 @main.route('/')
 def index():
-    return "<h1>Hello World!</h1>"
+    return render_template('index.html')
 
 @main.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -34,3 +34,7 @@ def register():
         db.session.commit()
         return redirect(url_for('.login'))
     return render_template('register.html', form = form)
+
+@main.route('/post/<int:id>', methods = ['GET', 'POST'])
+def post(id):
+    return render_template('post.html')

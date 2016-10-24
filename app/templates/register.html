@@ -1,15 +1,12 @@
-{% extends 'bootstrap/base.html' %}
+{% extends 'base.html' %}
+  {{ super() }}
 
 {% block head %}
-    <title>{% block title %} 注 册 {% endblock title %}</title>
-    {%- block styles %}
-    <link href="{{bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap')}}" rel="stylesheet">
+    {{ super() }}
     <link href="../static/register.css" rel="stylesheet">
-    {%- endblock styles %}
-
 {% endblock head %}
 
-{% block body %}
+{% block page_content %}
   <div class="container">
       <form class="form-signin" role="form">
         <h2 class="form-signin-heading">请注册</h2>

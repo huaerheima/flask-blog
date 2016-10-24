@@ -4,12 +4,8 @@
     {{ super() }}
 {% endblock head %}
 
-{% block page_content %}
+{% block page_content%}
 
-    <div class="blog-header">
-      <h1 class="blog-title">明博</h1>
-      <p class="lead blog-description">Hope you can have fun here.</p>
-    </div>
     <div class = 'row'>
     <div class="col-sm-8 blog-main">
       <div class="blog-post">
@@ -18,11 +14,24 @@
         <p>This blog post shows a few different types of content that's supported and styled with Bootstrap. Basic typography, images, and code are all supported.</p>
       </div>
                    <hr>
-      <div class="blog-post">
-        <h2 class="blog-post-title">Another blog post</h2>
-        <p class="blog-post-meta">December 23, 2013 by <a href="#">Jacob</a></p>
-        <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. </p>
-    </div>
+
+     <form role="form">
+       <div class="form-group">
+         <label for="exampleInputEmail1">Email address</label>
+         <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+       </div>
+       <div class="form-group">
+         <label for="exampleInputPassword1">Password</label>
+         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+       </div>
+       <div class="form-group">
+         <label for="comments">Comments</label>
+         <textarea class="form-control" rows="3" placeholder="说点啥吧！"></textarea>
+       </div>
+       <button type="submit" class="btn btn-default">Submit</button>
+     </form>
+
+
     </div>
     <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
       <div class="sidebar-module sidebar-module-inset">
@@ -94,4 +103,7 @@
     <a href='http://www.bjhee.com/tag/%e9%97%ad%e5%8c%85' class='tag-link-76' title='2个话题' style='font-size: 10.082644628099pt;'>闭包</a></div>
     </div>
   </div>
+
+
+
 {% endblock %}

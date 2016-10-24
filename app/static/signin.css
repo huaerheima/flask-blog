@@ -22,7 +22,7 @@ body {
 }
 .form-signin .form-control {
   position: relative;
-  height: auto;
+  height: center;
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
