@@ -1,9 +1,11 @@
 # -*- coding:utf-8 -*-
 from flask_wtf import Form
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, \
+        TextField, TextAreaField, SelectField
 from wtforms.validators import Required, Length, Email, EqualTo, Regexp
-from ..models import User
+from ..models import User, Category
 from wtforms import ValidationError
+
 
 class LoginForm(Form):
     email = StringField(u'邮箱', validators = [Required(), Length(1, 64), Email()])
@@ -27,3 +29,31 @@ class RegistrationForm(Form):
     def validate_username(self, field):
         if User.query.filter_by(username = field.data).first():
             raise ValidationError(u'用户名已被使用')
+
+class PostForm(Form):
+    title = StringField(u'标题', validators = [Required(), Length(1, 64)])
+    category = SelectField(u'栏目', coerce=int)
+    body = TextAreaField(u'内容', validators = [Required()])
+    submit = SubmitField(u'发表')
+
+    def __init__(self, *args, **kwargs):
+        super(PostForm, self).__init__(*args, **kwargs)
+        self.category.choices = [(cg.id, cg.name) for cg in Category.query.all()]
+
+class EditPostForm(Form):
+    title = StringField(u'标题', validators = [Required(), Length(1, 64)])
+    body = TextAreaField(u'内容', validators = [Required()])
+    submit = SubmitField(u'更新')
+
+class CategoryForm(Form):
+    name = StringField(u'栏目名称', validators = [Required(), Length(1, 10, message = 'Toooooo long.')])
+    submit = SubmitField(u'提交')
+
+    def __init__(self, *args, **kwargs):
+        super(CategoryForm, self).__init__(*args, **kwargs)
+        category = Category.query.filter(Category.name == 'None').first()
+        choices = [(category.id, category.name)]
+
+    def validate_name(self, field):
+        if Category.query.filter_by(name=field.data).first():
+            raise ValidationError(u'已有相同的栏目')
