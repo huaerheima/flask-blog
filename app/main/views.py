@@ -60,7 +60,6 @@ def secret():
     return u'只有已登录用户可见!'
 
 
-
 @main.route('/post/<int:id>', methods=['GET', 'POST'])
 def post(id):
     post = Post.query.get_or_404(id)
@@ -71,6 +70,18 @@ def post(id):
 def category():
     categories = Category.query.all()
     return render_template('category.html', categories = categories)
+
+
+@main.route('/add-category', methods=['POST'])
+def add_category():
+    categories = Category.query.filter_by(name=request.form['name'])
+    if categories.count() > 0:
+        return u"该分类已存在"
+    else:
+        category = Category(name=request.form['name'], count=0)
+        db.session.add(category)
+        db.session.commit()
+        return "添加成功"
 
 
 @main.route('/category/delete/<int:cat_id>', methods=['GET', 'POST'])
