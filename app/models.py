@@ -42,6 +42,10 @@ class Post(db.Model):
                                 foreign_keys=[category_id],
                                 backref = db.backref('posts', lazy = 'dynamic'))
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
     def __repr__(self):
         return '<Post %s Author %s>' % (self.title, self.author.username)
 
@@ -51,6 +55,26 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True)
     count = db.Column(db.Integer, default=0, index=True)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @staticmethod
+    def add_none():
+        none = Category(name=u'None')
+        none.save()
+        for post in Post.query.all():
+            if post.category is None:
+                post.category = none
+                post.save()
+
+    def delete(self):
+        for post in self.posts:
+            post.category_id = 1
+            post.save()
+        db.session.delete(self)
+        db.session.commit()
 
     def __repr__(self):
         return self.name

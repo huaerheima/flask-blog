@@ -6,7 +6,7 @@
             <a href="{{ url_for('main.post', id = post.id)}}"><h2 class="blog-post-title">{{ post.title }}</h2></a>
             <div><p class="blog-post-meta">发表于：{{ moment(post.timestamp).fromNow() }}  点击数：{{ post.count }}</p></div>
             <div>
-              {% if post.category %}
+              {% if post.category.name != 'None' %}
               <p class="blog-post-meta">标签：{{post.category}}</p>
               {% endif %}
             </div>

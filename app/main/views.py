@@ -57,7 +57,7 @@ def register():
 @main.route('/secret')
 @login_required
 def secret():
-    return u'Only authenticated users are allowed!'
+    return u'只有已登录用户可见!'
 
 
 
@@ -69,12 +69,16 @@ def post(id):
 
 @main.route('/category', methods=['GET', 'POST'])
 def category():
-    return render_template('category.html')
+    categories = Category.query.all()
+    return render_template('category.html', categories = categories)
 
 
-@main.route('/edit-category', methods=['GET', 'POST'])
-def edit_category():
-    return render_template('add_category.html')
+@main.route('/category/delete/<int:cat_id>', methods=['GET', 'POST'])
+def category_delete(cat_id):
+    category = Category.query.filter_by(id=cat_id).first()
+    category.delete()
+    flash(u'栏目已删除')
+    return redirect(url_for('main.category'))
 
 
 @main.route('/edit-post', methods=['GET', 'POST'])
