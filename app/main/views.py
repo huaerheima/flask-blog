@@ -12,6 +12,7 @@ from ..models import User, Post, Category
 def index():
     return render_template('index.html')
 
+
 @main.route('/login', methods = ['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -25,6 +26,7 @@ def login():
             flash(u"用户名或密码错误，请重试")
     return render_template('login.html', form = form)
 
+
 @main.route('/logout', methods = ['GET'])
 @login_required
 def logout():
@@ -32,9 +34,11 @@ def logout():
     flash(u'你已退出登录。')
     return redirect(url_for('.index'))
 
+
 @main.route('/about', methods=['GET'])
 def about():
     return render_template('about.html')
+
 
 @main.route('/register', methods = ['GET', 'POST'])
 def register():
@@ -48,23 +52,23 @@ def register():
         return redirect(url_for('.login'))
     return render_template('register.html', form = form)
 
-@main.route('/post/<int:id>', methods = ['GET', 'POST'])
+
+@main.route('/post/<int:id>', methods=['GET', 'POST'])
 def post(id):
     return render_template('post.html')
 
-@main.route('/edit-category', methods = ['GET', 'POST'])
+
+@main.route('/category', methods=['GET', 'POST'])
+def category():
+    return render_template('category.html')
+
+
+@main.route('/edit-category', methods=['GET', 'POST'])
 def edit_category():
-    form = CategoryForm()
-    if request.method == 'POST' and form.validate_on_submit:
-        category = Category(name = form.name.data)
-        db.session.add(category)
-        db.session.commit()
-        return redirect(url_for('index'))
-    return render_template('edit_category.html', form = form)
+    return render_template('add_category.html')
 
 
-
-@main.route('/edit-post', methods = ['GET', 'POST'])
+@main.route('/edit-post', methods=['GET', 'POST'])
 @login_required
 def edit_post():
     form = PostForm()

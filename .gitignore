@@ -1,5 +1,5 @@
 #虚拟环境
 venv
-
+.idea
 #pyc文件
 *.pyc

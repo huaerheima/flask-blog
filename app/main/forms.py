@@ -13,6 +13,7 @@ class LoginForm(Form):
     remember_me = BooleanField(u'保持登录')
     submit = SubmitField(u'登录')
 
+
 class RegistrationForm(Form):
     email = StringField(u'邮箱', validators = [Required(), Length(1, 64),
                 Email()])
@@ -30,6 +31,7 @@ class RegistrationForm(Form):
         if User.query.filter_by(username = field.data).first():
             raise ValidationError(u'用户名已被使用')
 
+
 class PostForm(Form):
     title = StringField(u'标题', validators = [Required(), Length(1, 64)])
     category = SelectField(u'栏目', coerce=int)
@@ -40,19 +42,21 @@ class PostForm(Form):
         super(PostForm, self).__init__(*args, **kwargs)
         self.category.choices = [(cg.id, cg.name) for cg in Category.query.all()]
 
+
 class EditPostForm(Form):
     title = StringField(u'标题', validators = [Required(), Length(1, 64)])
     body = TextAreaField(u'内容', validators = [Required()])
     submit = SubmitField(u'更新')
 
+
 class CategoryForm(Form):
     name = StringField(u'栏目名称', validators = [Required(), Length(1, 10, message = 'Toooooo long.')])
     submit = SubmitField(u'提交')
 
-    def __init__(self, *args, **kwargs):
-        super(CategoryForm, self).__init__(*args, **kwargs)
-        category = Category.query.filter(Category.name == 'None').first()
-        choices = [(category.id, category.name)]
+    # def __init__(self, *args, **kwargs):
+    #     super(CategoryForm, self).__init__(*args, **kwargs)
+    #     category = Category.query.filter(Category.name == 'None').first()
+    #     choices = [(category.id, category.name)]
 
     def validate_name(self, field):
         if Category.query.filter_by(name=field.data).first():
