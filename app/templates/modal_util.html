@@ -1,0 +1,129 @@
+{#
+Jinja 模板宏 用于模态框的一些通用操作:
+#}
+
+{%- macro modal(title, id, m_size="") %}
+<div id="{{ id }}" class="modal fade">
+    <div class="modal-dialog {{ m_size }}">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{{ title }}</h4>
+            </div>
+            <div class="modal-body center-block">
+                {{ caller() }}
+            </div>
+        </div>
+    </div>
+</div>
+{%- endmacro %}
+
+{%- macro modal_confirm(title, text, modal_id, form_id, btn_class="btn-primary", action="") %}
+    {% call modal(title, modal_id, "modal-sm") %}
+        <form id="{{ form_id }}" class="form-horizontal" action="{{ action }}">
+            <button class="center-block btn {{ btn_class }}" type="button" data-form="#{{ form_id }}">{{ text }}</button>
+        </form>
+    {% endcall %}
+{%- endmacro %}
+
+{%- macro modal_confirm_del() %}
+    {{ modal_confirm("删除", "确认删除该条信息", "modal-confirm-del", "form-confirm-del", "post-form btn-danger") }}
+{%- endmacro %}
+
+{%- macro modal_task_purge() %}
+    {{ modal_confirm("清空任务队列", "确认清空", "modal-task-purge", "form-task-purge", "post-form btn-danger") }}
+{%- endmacro %}
+
+{%- macro show_item(text, len1=2, len2=6) %}
+    <div class="form-group">
+        <label class="col-sm-{{ len1 }} control-label">{{ text }}</label>
+        <div class="col-sm-{{ len2 }}">
+            {{ caller() }}
+        </div>
+    </div>
+{%- endmacro %}
+
+{%- macro item_no_label(len=2) %}
+    <div class="col-md-{{len}}">
+        {{ caller() }}
+    </div>
+{%- endmacro %}
+
+{%- macro item_input_no_label(name, placeholder="", value="", len=2, disabled=False, class_name="", readonly=False, attr="") %}
+    {% call item_no_label(len) %}
+        <input type="text" name="{{ name }}" {% if disabled %} disabled {% endif %} {% if readonly %} readonly {% endif %} class="form-control {{ class_name }}" placeholder="{{ placeholder }}" value="{{value}}" {{attr}} />
+    {% endcall %}
+{%- endmacro %}
+
+{%- macro item_select_no_label(name, default_key, default_value, items, selected="", class_name="", len=2, attr="") %}
+    {% call item_no_label(len) %}
+        <select class="form-control {{ class_name }}" name="{{name}}" {{attr}}>
+            <option value="{{default_key}}">{{default_value}}</option>
+            {% for k, v in items %}
+                <option value="{{k}}" {% if k==selected %} selected {% endif %}>{{v}}</option>
+            {% endfor %}
+        </select>
+    {% endcall %}
+{%- endmacro %}
+
+{%- macro show_item_input(text, name, placeholder="", value="", len1=2, len2=6, disabled=False, class_name="", readonly=False, attr="") %}
+    {% call show_item(text, len1, len2) %}
+    <input type="text" name='{{ name }}' {% if disabled %} disabled {% endif %} {% if readonly %} readonly {% endif %} class="form-control {{ class_name }}" placeholder="{{ placeholder }}" value="{{ value }}" {{ attr }}>
+    {% endcall %}
+{%- endmacro %}
+
+{%- macro show_item_radio(text, name, items, checked="", len1=2, len2=6, attr="") %}
+    {% call show_item(text, len1, len2) %}
+        {% for k, v in items.items() %}
+            <label style="font-weight: 400"><input type="radio" name="{{name}}" value="{{k}}" {% if k==checked %} checked {% endif %} />{{v}}</label>
+        {% endfor %}
+    {% endcall %}
+{%- endmacro %}
+
+{#
+渲染一个 select 元素, 参数如下:
+
+- text      字段文本
+- name      select name 字段的值
+- items     select 的元素, 支持字典和键值对的列表如: [(key, val), ..]
+- selected  默认选中的元素
+- attr      额外的属性
+#}
+{%- macro show_item_select(text, name, items, default_key="", default_value="", selected="", class_name="", len1=2, len2=6, attr="") %}
+    {% call show_item(text, len1, len2) %}
+        <select class="form-control {{ class_name }}" name="{{ name }}" {{ attr }}>
+            {% if items is mapping %}
+                {% set paired_items = items.items() %}
+            {% else %}
+                {% set paired_items = items %}
+            {% endif %}
+
+            {% if default_value %}
+                <option value="{{ default_key }}">{{ default_value }}</option>
+            {% endif %}
+
+            {% for k, v in paired_items %}
+            <option value="{{ k }}" {% if k == selected %} selected {% endif %}>{{ v }}</option>
+            {% endfor %}
+        </select>
+    {% endcall %}
+{%- endmacro %}
+
+{%- macro submit(text="提交", offset=2, len2=6, id="", class_name="", type="submit", formid="") %}
+    <div class="form-group">
+        <div class="col-sm-offset-{{ offset }} col-sm-{{ len2 }}">
+            <button id="{{ id }}" type="{{ type }}" data-form="{{ formid }}" class="btn btn-primary {{ class_name }}">{{ text }}</button>
+        </div>
+    </div>
+{%- endmacro %}
+
+{% macro waitting_modal(title, id) %}
+    {% call modal(title, id) %}
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" style="width:100%"></div>
+        </div>
+    {% endcall %}
+{%- endmacro %}
+<!--
+vim:ft=jinja
+-->
