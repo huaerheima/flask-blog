@@ -45,14 +45,16 @@ class Post(db.Model):
     def __repr__(self):
         return '<Post %s Author %s>' % (self.title, self.author.username)
 
+
 class Category(db.Model):
-    __tablename__='categorys'
-    id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(64))
-    count = db.Column(db.Integer, default = 0, index = True)
+    __tablename__ = 'categorys'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
+    count = db.Column(db.Integer, default=0, index=True)
 
     def __repr__(self):
         return self.name
+
 
 @login_manager.user_loader
 def load_user(user_id):

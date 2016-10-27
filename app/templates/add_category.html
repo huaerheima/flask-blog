@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block head %}
+    {{ super() }}
+    <link href="../static/edit_post.css" rel = "stylesheet">
+{% endblock head %}
+
+{% block page_content %}
+    <div style="margin: 50px">
+        <div>
+
+        </div>
+        <div>
+            <a href="">添加分类</a>
+        </div>
+    </div>
+{#  <form class='form-edit-post' role = 'form' method="POST">#}
+{#    <h5 class="form-edit-post-heading">标签管理</h5>#}
+{#    {{ form.hidden_tag() }}#}
+{#    {{ wtf.form_field(form.name) }}#}
+{#    {{ form.csrf_token }}#}
+{#    {{ form.submit(class_='btn btn-lg btn-primary btn-block') }}#}
+{#  </form>#}
+{% endblock %}
