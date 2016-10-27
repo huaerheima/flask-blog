@@ -10,7 +10,8 @@ from ..models import User, Post, Category
 
 @main.route('/', methods = ['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    posts = Post.query.order_by(Post.timestamp.desc())
+    return render_template('index.html', posts = posts)
 
 
 @main.route('/login', methods = ['GET', 'POST'])
