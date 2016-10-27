@@ -49,11 +49,6 @@ class CategoryForm(Form):
     name = StringField(u'栏目名称', validators = [Required(), Length(1, 10, message = 'Toooooo long.')])
     submit = SubmitField(u'提交')
 
-    def __init__(self, *args, **kwargs):
-        super(CategoryForm, self).__init__(*args, **kwargs)
-        category = Category.query.filter(Category.name == 'None').first()
-        choices = [(category.id, category.name)]
-
     def validate_name(self, field):
         if Category.query.filter_by(name=field.data).first():
             raise ValidationError(u'已有相同的栏目')
