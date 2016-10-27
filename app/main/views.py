@@ -8,7 +8,7 @@ from flask_login import login_user, logout_user, login_required, \
 from ..models import User, Post, Category
 
 
-@main.route('/')
+@main.route('/', methods = ['GET', 'POST'])
 def index():
     return render_template('index.html')
 
@@ -51,6 +51,13 @@ def register():
         db.session.commit()
         return redirect(url_for('.login'))
     return render_template('register.html', form = form)
+
+
+@main.route('/secret')
+@login_required
+def secret():
+    return u'Only authenticated users are allowed!'
+
 
 
 @main.route('/post/<int:id>', methods=['GET', 'POST'])

@@ -8,16 +8,35 @@
 
 {% block navbar %}
   <div class="container">
-    <div class="blog-header ">
-      <a class="blog-nav-item active" href="{{ url_for('main.index') }}">主页</a>
-      <a class="blog-nav-item" href='{{ url_for('main.edit_post') }}'>写博客</a>
-      <a class="blog-nav-item" href="#">关于我</a>
-      <ul class="nav nav-pills pull-right" role="tablist">
-        <li role="presentation"><a class="pull-right" href='{{ url_for('main.login') }}'>登录</a></li>
-        <li role="presentation"><a class="blog-nav-item" href='{{ url_for('main.register') }}'>注册</a></li>
-      </ul>
-    </div>
-  </div>
+      <div class="blog-header ">
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li><a class="blog-nav-item active" href="{{ url_for('main.index') }}">主页</a></li>
+                {% if current_user.is_authenticated %}
+                <li><a class="blog-nav-item" href='{{ url_for('main.edit_post') }}'>写博客</a></li>
+                {% endif %}
+                <li><a class="blog-nav-item" href="#">关于我</a></li>
+              </ul>
+              <ul class="nav nav-nav pull-right" role="tablist">
+                {% if current_user.is_authenticated %}
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                          账户 <b class="caret"></b>
+                      </a>
+                      <ul class="dropdown-menu">
+                          <li role="presentation"><a class="blog-nav-item" href="{{ url_for('main.logout') }}">登出</a></li>
+                      </ul>
+                    </li>
+                {% else %}
+                <ul class="nav navbar-nav">
+                  <li role="presentation"><a class="pull-right" href='{{ url_for('main.login') }}'>登录</a></li>
+                  <li role="presentation"><a class="blog-nav-item" href='{{ url_for('main.register') }}'>注册</a></li>
+                </ul>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
 {% endblock  %}
 
 {% block content %}
