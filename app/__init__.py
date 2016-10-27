@@ -4,12 +4,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 from config import config
+from flask_moment import Moment
 from flask_login import LoginManager
 
 bootstrap = Bootstrap()
 redis_store = FlaskRedis()
 db = SQLAlchemy()
 migrate = Migrate()
+moment = Moment()
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -23,6 +25,7 @@ def create_app(config_name):
     bootstrap.init_app(app)
     redis_store.init_app(app)
     db.init_app(app)
+    moment.init_app(app)
     login_manager.init_app(app)
     migrate.init_app(app, db)
 

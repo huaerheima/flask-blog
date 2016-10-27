@@ -62,7 +62,8 @@ def secret():
 
 @main.route('/post/<int:id>', methods=['GET', 'POST'])
 def post(id):
-    return render_template('post.html')
+    post = Post.query.get_or_404(id)
+    return render_template('post.html', posts = [post])
 
 
 @main.route('/category', methods=['GET', 'POST'])

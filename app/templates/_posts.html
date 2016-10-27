@@ -1,0 +1,17 @@
+<ul class="posts">
+    {% for post in posts %}
+    <li class="post">
+        <div class="post-content">
+            <div class="post-title"><h3>{{ post.title }}</h3></div>
+            <div>发表于：{{ moment(post.timestamp).fromNow() }}  点击数：{{ post.count }}</div>
+            <div>
+              {% if post.category %}
+              <p>标签：{{post.category}}</p>
+              {% endif %}
+            </div>
+                    <br>
+            <div class="post-body"> {{ post.body }} </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
