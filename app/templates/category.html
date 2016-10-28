@@ -35,12 +35,12 @@
     <!-- 弹框-->
     <div id="bomb_box" class="bomb_box">
         <div style="border: 2px salmon">
-            <div style="margin: 10px">
-                <h5>添加分类</h5>
-            </div>
             <div style="margin: 20px">
-                <input type="text" name="name" />
-                <button type="submit">提交</button>
+              <form class="form-signin" role="form" method="POST">
+                  {{ wtf.form_field(form.name) }}
+                  {{ form.csrf_token }}
+                  {{ form.submit(class_='btn btn-lg btn-primary btn-block') }}
+              </form>
             </div>
         </div>
     </div>

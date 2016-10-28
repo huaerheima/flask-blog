@@ -11,7 +11,8 @@ from ..models import User, Post, Category
 @main.route('/', methods = ['GET', 'POST'])
 def index():
     posts = Post.query.order_by(Post.timestamp.desc())
-    return render_template('index.html', posts = posts)
+    categories = Category.query.order_by(Category.count.desc())
+    return render_template('index.html', posts = posts, categories = categories)
 
 
 @main.route('/login', methods = ['GET', 'POST'])
@@ -69,8 +70,14 @@ def post(id):
 
 @main.route('/category', methods=['GET', 'POST'])
 def category():
+    form = CategoryForm()
+    if form.validate_on_submit:
+        category = Category(name=form.name.data)
+        db.session.add(category)
+        flash(u'添加成功!')
+        return redirect(url_for('main.category'))
     categories = Category.query.all()
-    return render_template('category.html', categories = categories)
+    return render_template('category.html', categories=categories, form=form)
 
 
 @main.route('/category/delete/<int:cat_id>', methods=['GET', 'POST'])

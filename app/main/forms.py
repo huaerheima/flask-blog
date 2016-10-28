@@ -51,7 +51,7 @@ class EditPostForm(Form):
 
 class CategoryForm(Form):
     name = StringField(u'栏目名称', validators = [Required(), Length(1, 10, message = 'Toooooo long.')])
-    submit = SubmitField(u'提交')
+    submit = SubmitField(u'添加')
 
     def validate_name(self, field):
         if Category.query.filter_by(name=field.data).first():
