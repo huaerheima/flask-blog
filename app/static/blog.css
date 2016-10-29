@@ -138,7 +138,9 @@ h6, .h6 {
 /*
  * Blog posts
  */
-
+ li {
+ list-style-type:none;
+ }
 .blog-post {
   margin-bottom: 60px;
 }

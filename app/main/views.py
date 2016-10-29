@@ -69,14 +69,8 @@ def post(id):
 
 @main.route('/category', methods=['GET', 'POST'])
 def category():
-    form = CategoryForm()
-    if form.validate_on_submit:
-        category = Category(name=form.name.data)
-        db.session.add(category)
-        flash(u'添加成功!')
-        return redirect(url_for('main.category'))
     categories = Category.query.all()
-    return render_template('category.html', categories=categories, form=form)
+    return render_template('category.html', categories=categories)
 
 
 @main.route('/add-category', methods=['POST'])
@@ -88,7 +82,8 @@ def add_category():
         category = Category(name=request.form['name'], count=0)
         db.session.add(category)
         db.session.commit()
-        return "添加成功"
+        flash(u'添加成功')
+        return redirect(url_for('main.category'))
 
 
 @main.route('/category/delete/<int:cat_id>', methods=['GET', 'POST'])
